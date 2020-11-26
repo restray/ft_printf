@@ -6,7 +6,7 @@
 /*   By: tbelhomm </var/mail/tbelhomm>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 11:57:10 by tbelhomm          #+#    #+#             */
-/*   Updated: 2020/11/26 11:58:31 by tbelhomm         ###   ########.fr       */
+/*   Updated: 2020/11/26 14:40:18 by tbelhomm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,16 @@
 # include <unistd.h>
 # include <stdlib.h>
 
+typedef struct s_flags
+{
+	int	type;
+	int etoile;
+	int point;
+	int moins;
+	int zero;
+	int taille;
+	int affiche;
+} t_flags;
 int	ft_printf(const char *, ...);
 
 #endif

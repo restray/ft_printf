@@ -14,6 +14,8 @@ CFLAGS = -Wall -Werror -Wextra
 all :		$(NAME)
 
 $(NAME) :	${OBJS}
+	$(MAKE) all -C $(D_LIBFT)
+	cp libft/libft.a $(NAME)
 	ar -crs ${NAME} ${OBJS}
 
 clean :
@@ -27,7 +29,6 @@ fclean :	clean
 re :		fclean all
 
 %.o : %.c
-	$(MAKE) all -C $(D_LIBFT)
 	${CC} ${CFLAGS} $(INCLUDES) -c $< -o $@
 
 .PHONY: all clean fclean re test
