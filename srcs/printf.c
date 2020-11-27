@@ -6,13 +6,13 @@
 /*   By: tbelhomm </var/mail/tbelhomm>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 11:53:47 by tbelhomm          #+#    #+#             */
-/*   Updated: 2020/11/26 15:41:44 by tbelhomm         ###   ########.fr       */
+/*   Updated: 2020/11/27 15:53:01 by tbelhomm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "ft_printf.h"
-#include "stdio.h"
+#include <stdio.h>
 
 void	ft_putchar(char c)
 {
@@ -96,9 +96,10 @@ int		ft_flag_option_exist(char c)
 
 void	ft_parse_flag(char *string, unsigned int *i, t_flags *flag, va_list arg_list)
 {
-	while (string[*i] && !ft_isdigit(string[*i]) && !ft_flag_exist(string[*i]) 
-					&& !ft_flag_option_exist(string[*i]))
+	while (string[*i])
 	{
+		if (!ft_isdigit(string[*i]) && !ft_flag_exist(string[*i]) && !ft_flag_option_exist(string[*i]))
+			break ;
 		if (string[*i] == '0' && (*flag).taille == 0 && (*flag).moins == 0)
 			(*flag).zero = 1;
 		if (string[*i] == '.')
@@ -118,7 +119,51 @@ void	ft_parse_flag(char *string, unsigned int *i, t_flags *flag, va_list arg_lis
 	}
 }
 
-int		ft_traitement(char *string, va_list args)
+int		ft_display_flag_option_taille(t_flags flag)
+{
+	int	size;
+
+	size = 0;
+	while (flag.taille - flag.moins > 0)
+	{
+		if (flag.zero)
+			ft_putchar('0');
+		else
+			ft_putchar(' ');
+		(flag.taille)--;
+		size++;
+	}
+	return (size);
+}
+
+int		ft_display_flag_c(int c, t_flags flag)
+{
+	int size;
+	int	moins;
+
+	size = 0;
+	moins = flag.moins;
+	if (moins == 1)
+		ft_putchar(c);
+	flag.zero = 0;
+	flag.moins = 1;
+	size = ft_display_flag_option_taille(flag);
+	if (moins == 0)
+		ft_putchar(c);
+	return (size + 1);
+}
+
+int		ft_display_flag(t_flags flag, va_list arg_list)
+{
+	int		size;
+
+	size = 0;
+	if (flag.type == 'c')
+		size = ft_display_flag_c(va_arg(arg_list, int), flag);
+	return (size);
+}
+
+int		ft_traitement(char *string, va_list arg_list)
 {
 	unsigned int	i;
 	int				size;
@@ -132,7 +177,14 @@ int		ft_traitement(char *string, va_list args)
 		{
 			++i;
 			flag = ft_create_flag();
-			ft_parse_flag(string, &i, &flag, args);
+			ft_parse_flag(string, &i, &flag, arg_list);
+			if (ft_flag_exist(string[i]))
+				size += ft_display_flag(flag, arg_list);
+			else
+			{
+				size++;
+				ft_putchar(string[i]);
+			}
 		}
 		else
 		{
@@ -156,4 +208,11 @@ int		ft_printf(const char *args, ...)
 	va_end(arg_list);
 	free(string);
 	return (printed_chars);
+}
+
+int		main()
+{
+	printf("--%i--\n", ft_printf("%9c", 'c'));
+	printf("--%i--\n", ft_printf("%-9c", 'c'));
+	return (0);
 }
