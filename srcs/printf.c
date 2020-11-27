@@ -6,7 +6,7 @@
 /*   By: tbelhomm </var/mail/tbelhomm>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 11:53:47 by tbelhomm          #+#    #+#             */
-/*   Updated: 2020/11/27 15:53:01 by tbelhomm         ###   ########.fr       */
+/*   Updated: 2020/11/27 16:22:21 by tbelhomm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,6 +153,19 @@ int		ft_display_flag_c(int c, t_flags flag)
 	return (size + 1);
 }
 
+int		ft_display_flag_s(char *s, t_flags flag)
+{
+	int	size;
+
+	size = 0;
+	if (str == NULL)
+		str = "(null)";
+	if ((flag.point >= 0 && (size_t)flat.point > ft_strlen(s)) || flag.point < 0)
+		flag.point = ft_strlen(s);
+
+
+}
+
 int		ft_display_flag(t_flags flag, va_list arg_list)
 {
 	int		size;
@@ -160,6 +173,8 @@ int		ft_display_flag(t_flags flag, va_list arg_list)
 	size = 0;
 	if (flag.type == 'c')
 		size = ft_display_flag_c(va_arg(arg_list, int), flag);
+	if (flag.type == 's')
+		size = ft_display_flag_s(va_arg(arg_list, char *), flag);
 	return (size);
 }
 
