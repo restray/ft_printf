@@ -6,7 +6,7 @@
 /*   By: tbelhomm </var/mail/tbelhomm>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 11:53:47 by tbelhomm          #+#    #+#             */
-/*   Updated: 2020/11/30 14:39:40 by tbelhomm         ###   ########.fr       */
+/*   Updated: 2020/11/30 15:42:09 by tbelhomm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -261,6 +261,35 @@ int		ft_display_flag_pourcentage(t_flags flag)
 	return (size);
 }
 
+int		ft_display_flag_integer(int number, t_flags flag)
+{
+	char			*num;
+	char			*tmp;
+	int				size;
+	unsigned int	number_cpy;
+	int				taille;
+
+
+	if (flag.point == 0 && number == 0)
+		return (ft_putchar_size(0, flag.taille));
+	size = 0;
+	num = ft_itoa(number);
+	if (number < 0 && (flag.point >= 0 || flag.zero > 0))
+	{
+		if (flag.zero > 0 && flag.point == -1)
+			ft_putstr_len("-", 1);
+		tmp = ft_strtrim(num, "-");
+		free(num);
+		num = tmp;
+		flag.zero = 1;
+		flag.taille -= 1;
+		size++;
+	}
+	size += ft_printf("%s", num);
+	free(num);
+	return (size);
+}
+
 int		ft_display_flag(t_flags flag, va_list arg_list)
 {
 	int		size;
@@ -268,12 +297,14 @@ int		ft_display_flag(t_flags flag, va_list arg_list)
 	size = 0;
 	if (flag.type == 'c')
 		size = ft_display_flag_c(va_arg(arg_list, int), flag);
-	if (flag.type == 's')
+	else if (flag.type == 's')
 		size = ft_display_flag_s(va_arg(arg_list, char *), flag);
-	if (flag.type == 'p')
+	else if (flag.type == 'p')
 		size = ft_display_flag_p(va_arg(arg_list, unsigned long long), flag);
-	if (flag.type == '%')
+	else if (flag.type == '%')
 		size = ft_display_flag_pourcentage(flag);
+	else if (flag.type == 'i' || flag.type == 'd')
+		size = ft_display_flag_integer(va_arg(arg_list, int), flag);
 	return (size);
 }
 
