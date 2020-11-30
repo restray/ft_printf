@@ -6,7 +6,7 @@
 /*   By: tbelhomm </var/mail/tbelhomm>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 11:53:47 by tbelhomm          #+#    #+#             */
-/*   Updated: 2020/11/30 12:26:52 by tbelhomm         ###   ########.fr       */
+/*   Updated: 2020/11/30 13:59:33 by tbelhomm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,28 +162,54 @@ int		ft_putstr_len(char *s, size_t len)
 	return (size);
 }
 
+static int	ft_putspace(int	number)
+{
+	int	i;
+
+	i = 0;
+	while (i++ < number)
+		ft_putchar(' ');
+	return (number < 0 ? 0 : number);
+}
+
 int		ft_display_flag_p(unsigned long long p, t_flags flag)
 {
-	int			size;
-	char		ptr[100];
-	int			i;
+	int				size;
+	char			ptr[100];
+	char			ptr_copy[100];
+	unsigned int	i;
+	unsigned int	j;
+	int				exist;
 
 	size = 2;
-	ft_putstr_len("0x", 2);
 	i = 0;
+	exist = 0;
 	while (p != 0)
 	{
 		if (p % 16 < 10)
 			ptr[i++] = p % 16 + '0';
-		else 
-			ptr[i++] = p % 16 + 'a';
+		else
+			ptr[i++] = p % 16 - 10 + 'a';
 		p = p / 16;
 		size++;
+		exist++;
 	}
+	if (flag.moins == 0)
+		size += ft_putspace(flag.taille - size);
+	j = 0;
 	while (i > 0)
+		ptr_copy[j++] = ptr[--i];
+	ptr_copy[j] = '\0';
+	ft_putstr_len("0x", 2);
+	if (exist > 0)
+		ft_putstr_len(ptr_copy, size - 2);
+	else
 	{
-		ft_printf("%c", ptr[--i]);
+		ft_putchar('0');
+		size++;
 	}
+	if (flag.moins == 1)
+		size += ft_putspace(flag.taille - size);
 	return (size);
 }
 
