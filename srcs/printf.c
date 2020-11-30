@@ -6,7 +6,7 @@
 /*   By: tbelhomm </var/mail/tbelhomm>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 11:53:47 by tbelhomm          #+#    #+#             */
-/*   Updated: 2020/11/30 11:58:48 by tbelhomm         ###   ########.fr       */
+/*   Updated: 2020/11/30 12:26:52 by tbelhomm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,6 +162,31 @@ int		ft_putstr_len(char *s, size_t len)
 	return (size);
 }
 
+int		ft_display_flag_p(unsigned long long p, t_flags flag)
+{
+	int			size;
+	char		ptr[100];
+	int			i;
+
+	size = 2;
+	ft_putstr_len("0x", 2);
+	i = 0;
+	while (p != 0)
+	{
+		if (p % 16 < 10)
+			ptr[i++] = p % 16 + '0';
+		else 
+			ptr[i++] = p % 16 + 'a';
+		p = p / 16;
+		size++;
+	}
+	while (i > 0)
+	{
+		ft_printf("%c", ptr[--i]);
+	}
+	return (size);
+}
+
 int		ft_display_flag_s(char *s, t_flags flag)
 {
 	int		size;
@@ -203,6 +228,8 @@ int		ft_display_flag(t_flags flag, va_list arg_list)
 		size = ft_display_flag_c(va_arg(arg_list, int), flag);
 	if (flag.type == 's')
 		size = ft_display_flag_s(va_arg(arg_list, char *), flag);
+	if (flag.type == 'p')
+		size = ft_display_flag_p(va_arg(arg_list, unsigned long long), flag);
 	return (size);
 }
 
