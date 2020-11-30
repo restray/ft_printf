@@ -6,13 +6,12 @@
 /*   By: tbelhomm </var/mail/tbelhomm>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 11:53:47 by tbelhomm          #+#    #+#             */
-/*   Updated: 2020/11/27 16:22:21 by tbelhomm         ###   ########.fr       */
+/*   Updated: 2020/11/30 11:58:48 by tbelhomm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "ft_printf.h"
-#include <stdio.h>
 
 void	ft_putchar(char c)
 {
@@ -38,7 +37,7 @@ t_flags	ft_create_flag()
 	flag.type = 0;
 	flag.moins = 0;
 	flag.etoile = 0;
-	flag.point = 0;
+	flag.point = -1;
 	flag.taille = 0;
 	flag.affiche = 0;
 	return (flag);
@@ -153,17 +152,46 @@ int		ft_display_flag_c(int c, t_flags flag)
 	return (size + 1);
 }
 
-int		ft_display_flag_s(char *s, t_flags flag)
+int		ft_putstr_len(char *s, size_t len)
 {
-	int	size;
+	size_t	size;
 
 	size = 0;
-	if (str == NULL)
-		str = "(null)";
-	if ((flag.point >= 0 && (size_t)flat.point > ft_strlen(s)) || flag.point < 0)
+	while (s[size] && size < len)
+		ft_putchar(s[size++]);
+	return (size);
+}
+
+int		ft_display_flag_s(char *s, t_flags flag)
+{
+	int		size;
+	int		tmpTaille;
+
+	size = 0;
+	if (s == NULL)
+		s = "(null)";
+	if ((flag.point >= 0 && (size_t)flag.point > ft_strlen(s)) || flag.point < 0)
+	{
 		flag.point = ft_strlen(s);
-
-
+		tmpTaille = flag.taille;
+		flag.taille = ft_strlen(s);
+	}
+	else
+	{
+		tmpTaille = flag.taille;
+		flag.taille = flag.point;
+	}
+	if (flag.moins == 1)
+		size += ft_putstr_len(s, flag.taille);
+	while (tmpTaille > flag.taille)
+	{
+		ft_putchar(' ');
+		size++;
+		tmpTaille--;
+	}
+	if (flag.moins == 0)
+		size += ft_putstr_len(s, flag.taille);
+	return (size);
 }
 
 int		ft_display_flag(t_flags flag, va_list arg_list)
@@ -223,11 +251,4 @@ int		ft_printf(const char *args, ...)
 	va_end(arg_list);
 	free(string);
 	return (printed_chars);
-}
-
-int		main()
-{
-	printf("--%i--\n", ft_printf("%9c", 'c'));
-	printf("--%i--\n", ft_printf("%-9c", 'c'));
-	return (0);
 }
