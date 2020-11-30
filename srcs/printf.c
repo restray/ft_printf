@@ -6,7 +6,7 @@
 /*   By: tbelhomm </var/mail/tbelhomm>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 11:53:47 by tbelhomm          #+#    #+#             */
-/*   Updated: 2020/11/30 13:59:33 by tbelhomm         ###   ########.fr       */
+/*   Updated: 2020/11/30 14:39:40 by tbelhomm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,14 +162,14 @@ int		ft_putstr_len(char *s, size_t len)
 	return (size);
 }
 
-static int	ft_putspace(int	number)
+static int	ft_putchar_size(int zero, int size)
 {
 	int	i;
 
 	i = 0;
-	while (i++ < number)
-		ft_putchar(' ');
-	return (number < 0 ? 0 : number);
+	while (++i < size)
+		ft_putchar(zero > 0 ? '0' : ' ');
+	return (size < 0 ? 0 : size);
 }
 
 int		ft_display_flag_p(unsigned long long p, t_flags flag)
@@ -194,22 +194,24 @@ int		ft_display_flag_p(unsigned long long p, t_flags flag)
 		size++;
 		exist++;
 	}
+	if (exist > 0)
+		size--;
 	if (flag.moins == 0)
-		size += ft_putspace(flag.taille - size);
+		size += ft_putchar_size(flag.zero, flag.taille - size);
 	j = 0;
 	while (i > 0)
 		ptr_copy[j++] = ptr[--i];
 	ptr_copy[j] = '\0';
 	ft_putstr_len("0x", 2);
 	if (exist > 0)
-		ft_putstr_len(ptr_copy, size - 2);
+		ft_putstr_len(ptr_copy, ft_strlen(ptr_copy));
 	else
 	{
-		ft_putchar('0');
 		size++;
+		ft_putchar('0');
 	}
 	if (flag.moins == 1)
-		size += ft_putspace(flag.taille - size);
+		size += ft_putchar_size(flag.zero, flag.taille - size);
 	return (size);
 }
 
@@ -245,6 +247,20 @@ int		ft_display_flag_s(char *s, t_flags flag)
 	return (size);
 }
 
+int		ft_display_flag_pourcentage(t_flags flag)
+{
+	int	size;
+
+	size = 0;
+	if (flag.moins == 0)
+		size += ft_putchar_size(flag.zero, flag.taille);
+	ft_putchar('%');
+	size++;
+	if (flag.moins == 1)
+		size += ft_putchar_size(flag.zero, flag.taille);
+	return (size);
+}
+
 int		ft_display_flag(t_flags flag, va_list arg_list)
 {
 	int		size;
@@ -256,6 +272,8 @@ int		ft_display_flag(t_flags flag, va_list arg_list)
 		size = ft_display_flag_s(va_arg(arg_list, char *), flag);
 	if (flag.type == 'p')
 		size = ft_display_flag_p(va_arg(arg_list, unsigned long long), flag);
+	if (flag.type == '%')
+		size = ft_display_flag_pourcentage(flag);
 	return (size);
 }
 
