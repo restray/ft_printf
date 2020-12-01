@@ -6,7 +6,7 @@
 /*   By: tbelhomm </var/mail/tbelhomm>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 11:53:47 by tbelhomm          #+#    #+#             */
-/*   Updated: 2020/11/30 15:42:09 by tbelhomm         ###   ########.fr       */
+/*   Updated: 2020/12/01 15:07:13 by tbelhomm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -261,13 +261,26 @@ int		ft_display_flag_pourcentage(t_flags flag)
 	return (size);
 }
 
+int		ft_putspace_int(int taille, int longueur, int zero)
+{
+	int	size;
+
+	size = 0;
+	while (width > minus)
+	{
+		ft_putchar_fd(zero ? '0' : ' ', 1);
+		size++;
+		width--;
+	}
+	return (size);
+}
+
 int		ft_display_flag_integer(int number, t_flags flag)
 {
 	char			*num;
 	char			*tmp;
 	int				size;
 	unsigned int	number_cpy;
-	int				taille;
 
 
 	if (flag.point == 0 && number == 0)
@@ -285,7 +298,26 @@ int		ft_display_flag_integer(int number, t_flags flag)
 		flag.taille -= 1;
 		size++;
 	}
-	size += ft_printf("%s", num);
+	if (flag.moins == 1)
+	{
+		if (flag.point >= 0)
+		{
+			if (number < 0)
+				ft_putstr_len("-", 1);
+			size += ft_putspace_int(flag.point - 1, ft_strlen(num) - 1, 1);
+		}
+		size += ft_putstr_len(num, ft_strlen(num));
+	}
+	if (flag.point >= 0)
+	{
+		if ((size_t)flag.point < ft_strlen(num))
+			flag.point = ft_strlen(num);
+		flag.taille -= flag.point;
+		size += ft_putspace_int(flag.taille, 0, 0);
+	}
+	else
+
+	
 	free(num);
 	return (size);
 }
