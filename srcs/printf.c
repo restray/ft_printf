@@ -6,7 +6,7 @@
 /*   By: tbelhomm </var/mail/tbelhomm>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 11:53:47 by tbelhomm          #+#    #+#             */
-/*   Updated: 2020/12/01 15:29:17 by tbelhomm         ###   ########.fr       */
+/*   Updated: 2020/12/01 15:32:28 by tbelhomm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -329,18 +329,16 @@ int		ft_display_flag_integer(int number, t_flags flag)
 	return (size);
 }
 
-static int	ft_intlen(int n)
+static int	ft_intlen(unsigned int n)
 {
 	unsigned int	i;
-	unsigned int	n1;
 
 	if (n == 0)
 		return (2);
 	i = (n < 0 ? 2 : 1);
-	n1 = (n < 0 ? (unsigned int)-n : (unsigned int)n);
-	while (n1 > 9)
+	while (n > 9)
 	{
-		n1 /= 10;
+		n /= 10;
 		i++;
 	}
 	return (++i);
