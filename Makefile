@@ -1,6 +1,6 @@
 NAME = libftprintf.a
 
-SRCS = srcs/printf.c
+SRCS = srcs/printf.c srcs/ft_utils.c srcs/ft_flags.c
 
 D_LIBFT = libft/
 D_SRCS = srcs/

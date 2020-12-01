@@ -6,85 +6,12 @@
 /*   By: tbelhomm </var/mail/tbelhomm>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 11:53:47 by tbelhomm          #+#    #+#             */
-/*   Updated: 2020/12/01 23:11:16 by tbelhomm         ###   ########.fr       */
+/*   Updated: 2020/12/01 23:21:55 by tbelhomm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "ft_printf.h"
-
-void	ft_putchar(char c)
-{
-	write(1, &c, 1);
-}
-
-void	ft_putstr(char *str)
-{
-	size_t	len;
-
-	len = 0;
-	while (str)
-	{
-		ft_putchar(*str);
-		str++;
-	}
-}
-
-t_flags	ft_create_flag()
-{
-	t_flags	flag;
-
-	flag.type = 0;
-	flag.moins = 0;
-	flag.etoile = 0;
-	flag.point = -1;
-	flag.taille = 0;
-	flag.affiche = 0;
-	flag.etoileneg = 0;
-	return (flag);
-}
-
-void	ft_flag_moins(t_flags *flag)
-{
-	(*flag).moins = 1;
-	(*flag).zero = 0;
-}
-
-void	ft_flag_etoile(t_flags *flag, va_list arg_list)
-{
-	(*flag).etoile = 1;
-	(*flag).taille = va_arg(arg_list, int);
-	if ((*flag).taille < 0)
-	{
-		(*flag).moins = 1;
-		(*flag).etoileneg = 1;
-		(*flag).taille *= -1;
-	}
-	else
-		(*flag).etoileneg = 0;
-}
-
-void	ft_flag_point(char *string, unsigned int *i, t_flags *flag, va_list arg_list)
-{
-	if (string[++(*i)] == '*')
-	{
-		(*flag).point = va_arg(arg_list, int);
-		(*i)++;
-	}
-	else
-	{
-		(*flag).point = 0;
-		while (ft_isdigit(string[*i]))
-			(*flag).point = ((*flag).point * 10) + (string[(*i)++] - '0');
-	}
-}
-
-void	ft_flag_digit(t_flags *flag, char c)
-{
-	if ((*flag).etoile == 1)
-		(*flag).taille = 0;
-	(*flag).taille = ((*flag).taille * 10) + (c - '0');
-}
 
 int		ft_flag_exist(char c)
 {
