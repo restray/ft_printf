@@ -6,7 +6,7 @@
 /*   By: tbelhomm </var/mail/tbelhomm>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 11:57:10 by tbelhomm          #+#    #+#             */
-/*   Updated: 2020/11/26 14:40:18 by tbelhomm         ###   ########.fr       */
+/*   Updated: 2020/12/01 23:05:28 by tbelhomm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ typedef struct s_flags
 {
 	int	type;
 	int etoile;
+	int	etoileneg;
 	int point;
 	int moins;
 	int zero;

@@ -6,7 +6,7 @@
 /*   By: tbelhomm </var/mail/tbelhomm>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 11:53:47 by tbelhomm          #+#    #+#             */
-/*   Updated: 2020/12/01 16:13:23 by tbelhomm         ###   ########.fr       */
+/*   Updated: 2020/12/01 23:11:16 by tbelhomm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ t_flags	ft_create_flag()
 	flag.point = -1;
 	flag.taille = 0;
 	flag.affiche = 0;
+	flag.etoileneg = 0;
 	return (flag);
 }
 
@@ -56,8 +57,11 @@ void	ft_flag_etoile(t_flags *flag, va_list arg_list)
 	if ((*flag).taille < 0)
 	{
 		(*flag).moins = 1;
+		(*flag).etoileneg = 1;
 		(*flag).taille *= -1;
 	}
+	else
+		(*flag).etoileneg = 0;
 }
 
 void	ft_flag_point(char *string, unsigned int *i, t_flags *flag, va_list arg_list)
@@ -314,7 +318,7 @@ int		ft_display_flag_integer(int number, t_flags flag)
 		size += ft_putspace_int(flag.taille, 0, 0);
 	}
 	else
-		size += ft_putspace_int(flag.taille, ft_strlen(num), flag.zero);
+		size += ft_putspace_int(flag.taille, ft_strlen(num), flag.etoileneg == 1 ? 0 : flag.zero);
 	if (flag.moins == 0)
 	{
 		if (flag.point >= 0)
