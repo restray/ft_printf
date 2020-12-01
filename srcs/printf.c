@@ -6,7 +6,7 @@
 /*   By: tbelhomm </var/mail/tbelhomm>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 11:53:47 by tbelhomm          #+#    #+#             */
-/*   Updated: 2020/12/01 15:07:13 by tbelhomm         ###   ########.fr       */
+/*   Updated: 2020/12/01 15:13:31 by tbelhomm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -266,11 +266,11 @@ int		ft_putspace_int(int taille, int longueur, int zero)
 	int	size;
 
 	size = 0;
-	while (width > minus)
+	while (taille > longueur)
 	{
 		ft_putchar_fd(zero ? '0' : ' ', 1);
 		size++;
-		width--;
+		taille--;
 	}
 	return (size);
 }
@@ -280,11 +280,9 @@ int		ft_display_flag_integer(int number, t_flags flag)
 	char			*num;
 	char			*tmp;
 	int				size;
-	unsigned int	number_cpy;
-
 
 	if (flag.point == 0 && number == 0)
-		return (ft_putchar_size(0, flag.taille));
+		return (ft_putchar_size(0, flag.taille + 1));
 	size = 0;
 	num = ft_itoa(number);
 	if (number < 0 && (flag.point >= 0 || flag.zero > 0))
@@ -316,8 +314,17 @@ int		ft_display_flag_integer(int number, t_flags flag)
 		size += ft_putspace_int(flag.taille, 0, 0);
 	}
 	else
-
-	
+		size += ft_putspace_int(flag.taille, ft_strlen(num), flag.zero);
+	if (flag.moins == 0)
+	{
+		if (flag.point >= 0)
+		{
+			if (number < 0)
+				ft_putstr_len("-", 1);
+			size += ft_putspace_int(flag.point - 1, ft_strlen(num) - 1, 1);
+		}
+		size += ft_putstr_len(num, ft_strlen(num));
+	}	
 	free(num);
 	return (size);
 }
