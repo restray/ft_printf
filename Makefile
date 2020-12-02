@@ -9,6 +9,7 @@ SRCS = srcs/ft_printf.c \
 		srcs/ft_flag_p.c \
 		srcs/ft_flag_pourcentage.c \
 		srcs/ft_flag_u.c \
+		srcs/ft_flag_x.c
 
 D_LIBFT = libft/
 D_SRCS = srcs/

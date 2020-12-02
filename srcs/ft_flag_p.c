@@ -6,20 +6,21 @@
 /*   By: tbelhomm </var/mail/tbelhomm>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 14:34:05 by tbelhomm          #+#    #+#             */
-/*   Updated: 2020/12/02 14:36:35 by tbelhomm         ###   ########.fr       */
+/*   Updated: 2020/12/02 15:36:34 by tbelhomm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static char[100]	ft_flag_p_dec_to_hex(unsigned long long p, int *exist,
+static char			*ft_flag_p_dec_to_hex(unsigned long long p, int *exist,
                                         int *size)
 {
 	char			ptr[100];
-	char			ptr_copy[100];
+	char			*ptr_copy;
     int             i;
     int             j;
 
+	ptr_copy = ft_calloc(100, sizeof(char));
     i = 0;
 	while (p != 0)
 	{
@@ -34,7 +35,6 @@ static char[100]	ft_flag_p_dec_to_hex(unsigned long long p, int *exist,
     j = 0;
 	while (i > 0)
 		ptr_copy[j++] = ptr[--i];
-	ptr_copy[j] = '\0';
     *exist = j;
     return (ptr_copy);
 }
@@ -42,7 +42,7 @@ static char[100]	ft_flag_p_dec_to_hex(unsigned long long p, int *exist,
 int		    		ft_display_flag_p(unsigned long long p, t_flags flag)
 {
 	int				size;
-	char			ptr[100];
+	char			*ptr;
 	int				exist;
 
 	size = 2;
@@ -53,10 +53,11 @@ int		    		ft_display_flag_p(unsigned long long p, t_flags flag)
 		size += ft_putchar_size(flag.zero, flag.taille - size);
 	ft_putstr_len("0x", 2);
 	if (exist > 0)
-		ft_putstr_len(ptr_copy, ft_strlen(ptr_copy));
+		ft_putstr_len(ptr, ft_strlen(ptr));
 	else
 		size += ft_putchar('0');
 	if (flag.moins == 1)
 		size += ft_putchar_size(flag.zero, flag.taille - size);
+	free(ptr);
 	return (size);
 }

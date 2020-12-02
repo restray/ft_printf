@@ -6,7 +6,7 @@
 /*   By: tbelhomm </var/mail/tbelhomm>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 14:54:25 by tbelhomm          #+#    #+#             */
-/*   Updated: 2020/12/02 14:54:25 by tbelhomm         ###   ########.fr       */
+/*   Updated: 2020/12/02 15:44:17 by tbelhomm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,8 @@ static char	*ft_itoa_l(unsigned int n)
 	return (str);
 }
 
-static void	ft_flag_u_display_moins(char *num, t_flags flag, int *size)
+static void	ft_flag_u_display_moins(char *num, t_flags flag, int *size,
+									unsigned int number)
 {
     if (flag.point >= 0)
     {
@@ -59,7 +60,7 @@ static void	ft_flag_u_display_moins(char *num, t_flags flag, int *size)
     (*size) += ft_putstr_len(num, ft_strlen(num));
 }
 
-static void	ft_flag_u_init(t_flags *flag, unsigned int number,
+static int	ft_flag_u_init(t_flags *flag, unsigned int number,
 							char *num, int *size)
 {
 	char			*tmp;
@@ -67,29 +68,32 @@ static void	ft_flag_u_init(t_flags *flag, unsigned int number,
 	if ((*flag).point == 0 && number == 0)
 		return (ft_putchar_size(0, (*flag).taille + 1));
 	*size = 0;
-	**num = ft_itoa_l(number);
+	num = ft_itoa_l(number);
 	if (number < 0 && ((*flag).point >= 0 || (*flag).zero > 0))
 	{
 		if ((*flag).zero > 0 && (*flag).point == -1)
 			ft_putstr_len("-", 1);
 		tmp = ft_strtrim(num, "-");
 		free(num);
-		**num = tmp;
+		num = tmp;
 		(*flag).zero = 1;
 		(*flag).taille -= 1;
 		(*size)++;
 	}
+	return (-1);
 }
 
 int			ft_display_flag_unsigned_int(unsigned int number, t_flags flag)
 {	
 	char			*num;
-	char			*tmp;
 	int				size;
+	int				tmp_size;
 
-	ft_flag_u_init(flag, number, &num, &size);
+	num = NULL;
+	if ((tmp_size = ft_flag_u_init(&flag, number, num, &size)) > -1)
+		return (tmp_size);
 	if (flag.moins == 1)
-        size += ft_flag_u_display_moins();
+        ft_flag_u_display_moins(num, flag, &size, number);
 	if (flag.point >= 0)
 	{
 		if ((size_t)flag.point < ft_strlen(num))
@@ -100,7 +104,7 @@ int			ft_display_flag_unsigned_int(unsigned int number, t_flags flag)
 	else
 		size += ft_putspace_int(flag.taille, ft_strlen(num), flag.zero);
 	if (flag.moins == 0)
-        size += ft_flag_u_display_moins();
+        ft_flag_u_display_moins(num, flag, &size, number);
 	free(num);
 	return (size);
 }

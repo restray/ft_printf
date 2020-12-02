@@ -6,7 +6,7 @@
 /*   By: tbelhomm </var/mail/tbelhomm>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/01 23:21:35 by tbelhomm          #+#    #+#             */
-/*   Updated: 2020/12/01 23:30:05 by tbelhomm         ###   ########.fr       */
+/*   Updated: 2020/12/02 15:37:26 by tbelhomm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ t_flags	ft_create_flag(void)
 	flag.etoile = 0;
 	flag.point = -1;
 	flag.taille = 0;
-	flag.affiche = 0;
 	flag.etoileneg = 0;
 	return (flag);
 }
