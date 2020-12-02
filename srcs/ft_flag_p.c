@@ -1,27 +1,27 @@
 /* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_flag_p.c                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: tbelhomm </var/mail/tbelhomm>              +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/02 14:34:05 by tbelhomm          #+#    #+#             */
-/*   Updated: 2020/12/02 16:30:20 by tbelhomm         ###   ########.fr       */
-/*                                                                            */
+/*																			*/
+/*														:::	  ::::::::   */
+/*   ft_flag_p.c										:+:	  :+:	:+:   */
+/*													+:+ +:+		 +:+	 */
+/*   By: tbelhomm </var/mail/tbelhomm>			  +#+  +:+	   +#+		*/
+/*												+#+#+#+#+#+   +#+		   */
+/*   Created: 2020/12/02 14:34:05 by tbelhomm		  #+#	#+#			 */
+/*   Updated: 2020/12/02 18:21:21 by tbelhomm         ###   ########.fr       */
+/*																			*/
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
 static char			*ft_flag_p_dec_to_hex(unsigned long long p, int *exist,
-                                        int *size)
+										int *size)
 {
 	char			ptr[100];
 	char			*ptr_copy;
-    int             i;
-    int             j;
+	int				i;
+	int				j;
 
 	ptr_copy = ft_calloc(100, sizeof(char));
-    i = 0;
+	i = 0;
 	while (p != 0)
 	{
 		if (p % 16 < 10)
@@ -31,21 +31,21 @@ static char			*ft_flag_p_dec_to_hex(unsigned long long p, int *exist,
 		p = p / 16;
 		(*size)++;
 	}
-    j = 0;
+	j = 0;
 	while (i > 0)
 		ptr_copy[j++] = ptr[--i];
-    *exist = j;
-    return (ptr_copy);
+	*exist = j;
+	return (ptr_copy);
 }
 
-int		    		ft_display_flag_p(unsigned long long p, t_flags flag)
+int					ft_display_flag_p(unsigned long long p, t_flags flag)
 {
 	int				size;
 	char			*ptr;
 	int				exist;
 
 	size = 2;
-    ptr = ft_flag_p_dec_to_hex(p, &exist, &size);
+	ptr = ft_flag_p_dec_to_hex(p, &exist, &size);
 	if (exist > 0)
 		size--;
 	if (flag.moins == 0)

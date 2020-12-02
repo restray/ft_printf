@@ -6,7 +6,7 @@
 /*   By: tbelhomm </var/mail/tbelhomm>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 11:57:10 by tbelhomm          #+#    #+#             */
-/*   Updated: 2020/12/02 15:37:08 by tbelhomm         ###   ########.fr       */
+/*   Updated: 2020/12/02 18:31:21 by tbelhomm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,7 @@ int				ft_display_flag_unsigned_int(unsigned int number,
 											t_flags flag);
 int				ft_display_flag_hex(unsigned int number, 
 						int minuscule, t_flags flag);
+
+int				ft_display_flag_hex(unsigned int number, int minuscule,
+								t_flags flag);
 #endif
