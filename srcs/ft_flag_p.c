@@ -6,7 +6,7 @@
 /*   By: tbelhomm </var/mail/tbelhomm>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 14:34:05 by tbelhomm          #+#    #+#             */
-/*   Updated: 2020/12/02 15:36:34 by tbelhomm         ###   ########.fr       */
+/*   Updated: 2020/12/02 16:30:20 by tbelhomm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ static char			*ft_flag_p_dec_to_hex(unsigned long long p, int *exist,
 			ptr[i++] = p % 16 - 10 + 'a';
 		p = p / 16;
 		(*size)++;
-		exist++;
 	}
     j = 0;
 	while (i > 0)
