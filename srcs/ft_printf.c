@@ -6,65 +6,11 @@
 /*   By: tbelhomm <tbelhomm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 18:48:35 by tbelhomm          #+#    #+#             */
-/*   Updated: 2020/12/02 18:48:36 by tbelhomm         ###   ########.fr       */
+/*   Updated: 2020/12/02 18:52:08 by tbelhomm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
-int		ft_display_flag_integer(int number, t_flags flag)
-{
-	char			*num;
-	char			*tmp;
-	int				size;
-
-	if (flag.point == 0 && number == 0)
-		return (ft_putchar_size(0, flag.taille + 1));
-	size = 0;
-	num = ft_itoa(number);
-	if (number < 0 && (flag.point >= 0 || flag.zero > 0))
-	{
-		if (flag.zero > 0 && flag.point == -1)
-			ft_putstr_len("-", 1);
-		tmp = ft_strtrim(num, "-");
-		free(num);
-		num = tmp;
-		flag.zero = 1;
-		flag.taille -= 1;
-		size++;
-	}
-	if (flag.moins == 1)
-	{
-		if (flag.point >= 0)
-		{
-			if (number < 0)
-				ft_putstr_len("-", 1);
-			size += ft_putspace_int(flag.point - 1, ft_strlen(num) - 1, 1);
-		}
-		size += ft_putstr_len(num, ft_strlen(num));
-	}
-	if (flag.point >= 0)
-	{
-		if ((size_t)flag.point < ft_strlen(num))
-			flag.point = ft_strlen(num);
-		flag.taille -= flag.point;
-		size += ft_putspace_int(flag.taille, 0, 0);
-	}
-	else
-		size += ft_putspace_int(flag.taille, ft_strlen(num), flag.etoileneg == 1 ? 0 : flag.zero);
-	if (flag.moins == 0)
-	{
-		if (flag.point >= 0)
-		{
-			if (number < 0)
-				ft_putstr_len("-", 1);
-			size += ft_putspace_int(flag.point - 1, ft_strlen(num) - 1, 1);
-		}
-		size += ft_putstr_len(num, ft_strlen(num));
-	}	
-	free(num);
-	return (size);
-}
 
 int		ft_display_flag(t_flags flag, va_list arg_list)
 {
