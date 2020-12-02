@@ -6,7 +6,7 @@
 /*   By: tbelhomm <tbelhomm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 18:52:15 by tbelhomm          #+#    #+#             */
-/*   Updated: 2020/12/02 19:02:14 by tbelhomm         ###   ########.fr       */
+/*   Updated: 2020/12/02 19:06:00 by tbelhomm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static char	*ft_flag_i_init(t_flags *flag, int number, int *size)
 }
 
 static void	ft_flag_i_moins(t_flags flag, char *num, int number, int *size)
-{	
+{
 	if (flag.point >= 0)
 	{
 		if (number < 0)
@@ -67,7 +67,8 @@ int			ft_display_flag_integer(int number, t_flags flag)
 		size += ft_putspace_int(flag.taille, 0, 0);
 	}
 	else
-		size += ft_putspace_int(flag.taille, ft_strlen(num), flag.etoileneg == 1 ? 0 : flag.zero);
+		size += ft_putspace_int(flag.taille, ft_strlen(num),
+								flag.etoileneg == 1 ? 0 : flag.zero);
 	if (flag.moins == 0)
 		ft_flag_i_moins(flag, num, number, &size);
 	free(num);

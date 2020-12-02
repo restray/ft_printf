@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbelhomm </var/mail/tbelhomm>              +#+  +:+       +#+        */
+/*   By: tbelhomm <tbelhomm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/26 11:57:10 by tbelhomm          #+#    #+#             */
-/*   Updated: 2020/12/02 18:58:42 by tbelhomm         ###   ########.fr       */
+/*   Created: 2020/12/02 19:06:17 by tbelhomm          #+#    #+#             */
+/*   Updated: 2020/12/02 19:07:18 by tbelhomm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,13 +53,13 @@ int				ft_display_flag_c(int c, t_flags flag);
 
 int				ft_display_flag_s(char *s, t_flags flag);
 
-int		    	ft_display_flag_p(unsigned long long p, t_flags flag);
+int				ft_display_flag_p(unsigned long long p, t_flags flag);
 
 int				ft_display_flag_pourcentage(t_flags flag);
 
-int				ft_display_flag_unsigned_int(unsigned int number, 
+int				ft_display_flag_unsigned_int(unsigned int number,
 											t_flags flag);
-int				ft_display_flag_hex(unsigned int number, 
+int				ft_display_flag_hex(unsigned int number,
 						int minuscule, t_flags flag);
 
 int				ft_display_flag_hex(unsigned int number, int minuscule,

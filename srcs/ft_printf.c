@@ -6,7 +6,7 @@
 /*   By: tbelhomm <tbelhomm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 18:48:35 by tbelhomm          #+#    #+#             */
-/*   Updated: 2020/12/02 18:52:08 by tbelhomm         ###   ########.fr       */
+/*   Updated: 2020/12/02 19:05:21 by tbelhomm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,11 @@ int		ft_display_flag(t_flags flag, va_list arg_list)
 	else if (flag.type == 'i' || flag.type == 'd')
 		size = ft_display_flag_integer(va_arg(arg_list, int), flag);
 	else if (flag.type == 'u')
-		size = ft_display_flag_unsigned_int(va_arg(arg_list, unsigned int), flag);
+		size = ft_display_flag_unsigned_int(va_arg(arg_list, unsigned int),
+				flag);
 	else if (flag.type == 'x' || flag.type == 'X')
-		size = ft_display_flag_hex(va_arg(arg_list, unsigned int), flag.type == 'x' ? 0 : 1, flag);
+		size = ft_display_flag_hex(va_arg(arg_list, unsigned int),
+				flag.type == 'x' ? 0 : 1, flag);
 	return (size);
 }
 
