@@ -6,22 +6,12 @@
 /*   By: tbelhomm </var/mail/tbelhomm>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 11:53:47 by tbelhomm          #+#    #+#             */
-/*   Updated: 2020/12/02 10:46:50 by tbelhomm         ###   ########.fr       */
+/*   Updated: 2020/12/02 10:59:28 by tbelhomm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "ft_printf.h"
-
-int		ft_putstr_len(char *s, size_t len)
-{
-	size_t	size;
-
-	size = 0;
-	while (s[size] && size < len)
-		ft_putchar(s[size++]);
-	return (size);
-}
 
 static int	ft_putchar_size(int zero, int size)
 {
@@ -73,38 +63,6 @@ int		ft_display_flag_p(unsigned long long p, t_flags flag)
 	}
 	if (flag.moins == 1)
 		size += ft_putchar_size(flag.zero, flag.taille - size);
-	return (size);
-}
-
-int		ft_display_flag_s(char *s, t_flags flag)
-{
-	int		size;
-	int		tmpTaille;
-
-	size = 0;
-	if (s == NULL)
-		s = "(null)";
-	if ((flag.point >= 0 && (size_t)flag.point > ft_strlen(s)) || flag.point < 0)
-	{
-		flag.point = ft_strlen(s);
-		tmpTaille = flag.taille;
-		flag.taille = ft_strlen(s);
-	}
-	else
-	{
-		tmpTaille = flag.taille;
-		flag.taille = flag.point;
-	}
-	if (flag.moins == 1)
-		size += ft_putstr_len(s, flag.taille);
-	while (tmpTaille > flag.taille)
-	{
-		ft_putchar(' ');
-		size++;
-		tmpTaille--;
-	}
-	if (flag.moins == 0)
-		size += ft_putstr_len(s, flag.taille);
 	return (size);
 }
 

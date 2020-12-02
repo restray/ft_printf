@@ -6,7 +6,7 @@
 /*   By: tbelhomm </var/mail/tbelhomm>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/01 23:15:37 by tbelhomm          #+#    #+#             */
-/*   Updated: 2020/12/01 23:20:49 by tbelhomm         ###   ########.fr       */
+/*   Updated: 2020/12/02 10:59:40 by tbelhomm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,4 +27,14 @@ void	ft_putstr(char *str)
 		ft_putchar(*str);
 		str++;
 	}
+}
+
+int		ft_putstr_len(char *s, size_t len)
+{
+	size_t	size;
+
+	size = 0;
+	while (s[size] && size < len)
+		ft_putchar(s[size++]);
+	return (size);
 }

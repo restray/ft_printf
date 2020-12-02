@@ -6,7 +6,7 @@
 /*   By: tbelhomm </var/mail/tbelhomm>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 11:57:10 by tbelhomm          #+#    #+#             */
-/*   Updated: 2020/12/02 10:48:10 by tbelhomm         ###   ########.fr       */
+/*   Updated: 2020/12/02 10:59:56 by tbelhomm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ int				ft_printf(const char *format, ...);
 
 void			ft_putchar(char c);
 void			ft_putstr(char *str);
+int				ft_putstr_len(char *s, size_t len);
 
 t_flags			ft_create_flag(void);
 void			ft_flag_moins(t_flags *flag);
@@ -47,4 +48,6 @@ void			ft_parse_flag(char *string, unsigned int *i,
 int				ft_display_flag_option_taille(t_flags flag);
 
 int				ft_display_flag_c(int c, t_flags flag);
+
+int				ft_display_flag_s(char *s, t_flags flag);
 #endif
