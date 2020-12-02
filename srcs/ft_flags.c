@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include "libft.h"
 
 t_flags	ft_create_flag(void)
 {

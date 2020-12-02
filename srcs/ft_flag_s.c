@@ -10,15 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "ft_printf.h"
 
 static void	ft_display_flag_s_space(t_flags flag, int tmp_taille, int *size)
 {
 	while (tmp_taille > flag.taille)
 	{
-		ft_putchar(' ');
-		(*size)++;
+		(*size) += ft_putchar(' ');
 		tmp_taille--;
 	}
 }

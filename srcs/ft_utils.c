@@ -12,9 +12,10 @@
 
 #include "ft_printf.h"
 
-void	ft_putchar(char c)
+int		ft_putchar(char c)
 {
 	write(1, &c, 1);
+	return (1);
 }
 
 void	ft_putstr(char *str)
@@ -36,5 +37,28 @@ int		ft_putstr_len(char *s, size_t len)
 	size = 0;
 	while (s[size] && size < len)
 		ft_putchar(s[size++]);
+	return (size);
+}
+
+int		ft_putchar_size(int zero, int size)
+{
+	int	i;
+
+	i = 0;
+	while (++i < size)
+		ft_putchar(zero > 0 ? '0' : ' ');
+	return (size < 0 ? 0 : size);
+}
+
+int		ft_putspace_int(int taille, int longueur, int zero)
+{
+	int	size;
+
+	size = 0;
+	while (taille-- > longueur)
+	{
+		ft_putchar(zero ? '0' : ' ');
+		size++;
+	}
 	return (size);
 }
